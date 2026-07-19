@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evy · Galería Interactiva | Colección de Viajes</title>
+  <meta name="description" content="Galería fotográfica interactiva con álbumes de viajes por Italia y España. Explora momentos capturados en Milán, Venecia, Pisa, Como, Madrid y Palma." />
+  <meta name="theme-color" content="#0a0a0c" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
+  <meta property="og:title" content="Evy · Galería Interactiva" />
+  <meta property="og:description" content="Colección de viajes a través de una galería fotográfica inmersiva." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/fotos/WhatsApp%20Image%202026-05-23%20at%2013.41.01%20(1).jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="cursor"></div>
+  <div id="grain"></div>
+  <div id="glow"></div>
+  <div id="stage"></div>
+
+  <main>
+
+  <!-- Reproductor de música -->
+  <audio id="bgMusic" loop preload="none">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+  <button id="musicBtn" aria-label="Alternar música" title="Alternar música">
+    <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+  </button>
+
+  <section id="hero" role="banner">
+    <p class="hero-eyebrow">Colección permanente</p>
+    <h1 class="hero-title">Instantes<br><em>eternos</em></h1>
+    <p class="hero-sub">Fotografía documental · 2024</p>
+    <div class="hero-divider"></div>
+    <button class="hero-cta" id="ctaBtn">Explorar galería</button>
+  </section>
+
+  <div id="grid-modal" role="dialog" aria-modal="true" aria-label="Explorador de colecciones">
+    <div class="gm-header">
+      <div class="gm-header-left">
+        <button class="gm-back" id="gmBack" style="display: none;" aria-label="Volver a álbumes">
+          <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+          Volver a álbumes
+        </button>
+        <span class="gm-eyebrow" id="gmEyebrow">Categorías</span>
+        <h2 class="gm-title" id="gmTitle">Álbumes</h2>
+        <span class="gm-count" id="gmCount"></span>
+      </div>
+      <button class="gm-close" id="gmClose" aria-label="Cerrar ventana">✕</button>
+    </div>
+    <div class="gm-body">
+      <div id="gmGrid"></div>
+    </div>
+  </div>
+
+  <div id="album-lock" class="album-lock" role="dialog" aria-modal="true" aria-labelledby="albumLockTitle" hidden>
+    <div class="album-lock-box">
+      <p class="album-lock-eyebrow">Álbum privado</p>
+      <h3 class="album-lock-title" id="albumLockTitle">Ella</h3>
+      <p class="album-lock-hint">Introduce la fecha especial</p>
+      <div class="code-dots" id="codeDots"></div>
+      <div class="num-pad" id="numPad"></div>
+      <div class="album-lock-actions">
+        <button type="button" class="album-lock-cancel" id="albumLockCancel">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lbTitle" aria-describedby="lbDesc">
+    <div class="lb-inner">
+      <div class="lb-media">
+        <img class="lb-img" id="lbImg" src="" alt="" />
+        <video class="lb-video" id="lbVideo" controls playsinline preload="metadata"></video>
+        <button class="lb-nav lb-prev" id="lbPrev" aria-label="Anterior">‹</button>
+        <button class="lb-nav lb-next" id="lbNext" aria-label="Siguiente">›</button>
+      </div>
+      <div class="lb-info">
+        <span class="lb-album" id="lbAlbumTag"></span>
+        <span class="lb-date" id="lbDate"></span>
+        <span class="lb-location" id="lbLocation"></span>
+        <p class="lb-num"  id="lbNum"></p>
+        <h2 class="lb-title" id="lbTitle"></h2>
+        <p class="lb-desc"  id="lbDesc"></p>
+      </div>
+      <button class="lb-close" id="lbClose" aria-label="Cerrar imagen">✕</button>
+    </div>
+  </div>
+  </main>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
