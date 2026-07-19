@@ -9,7 +9,19 @@
 
 import { isVideo, mediaSrc } from './helpers.js';
 
-const API_AVAILABLE = location.protocol === 'http:' || location.protocol === 'https:';
+/**
+ * El panel solo funciona con el servidor Node local (server.js).
+ * Comprobamos de verdad que la API responde antes de mostrar nada,
+ * así en producción (Vercel, hosting estático) el panel queda oculto.
+ */
+async function apiIsAvailable() {
+  try {
+    const r = await fetch('/api/photos', { method: 'HEAD' });
+    return r.ok;
+  } catch {
+    return false;
+  }
+}
 
 let state = { photos: [], albumOrder: [] };
 let dirty = false;
@@ -372,10 +384,6 @@ async function save() {
 
 /* ── Abrir / cerrar ─────────────────────────────────────── */
 async function openPanel() {
-  if (!API_AVAILABLE) {
-    alert('El panel de administración necesita el servidor Node.\n\nArranca la galería con:  node server.js');
-    return;
-  }
   let panel = document.getElementById('admin-panel');
   if (!panel) buildPanel();
   status('Cargando…');
@@ -407,8 +415,9 @@ function escAttr(s) {
 }
 
 /* ── Botón flotante + atajo #admin ──────────────────────── */
-export function initAdmin() {
-  if (!API_AVAILABLE) return; // sin servidor, no mostramos nada
+export async function initAdmin() {
+  // Sin servidor Node (p. ej. en Vercel) no mostramos el panel.
+  if (!(await apiIsAvailable())) return;
 
   const btn = document.createElement('button');
   btn.id = 'adminFab';

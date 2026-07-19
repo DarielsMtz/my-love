@@ -201,6 +201,11 @@ function serveStatic(req, res) {
 /* ── Servidor ───────────────────────────────────────────── */
 const server = http.createServer(async (req, res) => {
   try {
+    // API: sonda de disponibilidad (usada por el panel de admin)
+    if (req.method === 'HEAD' && req.url === '/api/photos') {
+      res.writeHead(200); res.end(); return;
+    }
+
     // API: obtener fotos
     if (req.method === 'GET' && req.url === '/api/photos') {
       const { photos, albumOrder } = loadPhotosFromData();
